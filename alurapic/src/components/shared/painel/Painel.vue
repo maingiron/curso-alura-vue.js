@@ -1,13 +1,15 @@
 <template>
   <div class="painel">
-    <h2 class="painel-titulo"></h2>
-    <div class="painel-conteudo"></div>
+    <h2 class="painel-titulo">{{ titulo }}</h2>
+    <!-- coloco a tag slot para receber tudo que estiver dentro da tag meu-painel (App.vue) -->
+    <slot class="painel-conteudo"></slot>
   </div>
 </template>
 
 <script>
   export default {
 
+    props: ['titulo']
   }
 </script>
 

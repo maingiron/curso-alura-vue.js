@@ -1,7 +1,7 @@
 <template>
   <div class="painel">
     <h2 class="painel-titulo">{{ titulo }}</h2>
-    <!-- coloco a tag slot para receber tudo que estiver dentro da tag meu-painel (App.vue) -->
+    <!-- Coloco a tag slot para receber e manter tudo que estiver dentro da tag meu-painel (App.vue) -->
     <slot class="painel-conteudo"></slot>
   </div>
 </template>
@@ -13,7 +13,8 @@
   }
 </script>
 
-<style>
+<!-- A propriedade scoped faz o CSS afetar apenas o próprio componente -->
+<style scoped>
   .painel {
     padding: 0 auto;
     border: solid 2px grey;

@@ -8,7 +8,7 @@
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
         <meu-painel :titulo="foto.titulo">
-          <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
+          <imagem-responsiva :url="foto.url" :titulo="foto.titulo"></imagem-responsiva>
         </meu-painel>
       </li>
     </ul>
@@ -17,12 +17,14 @@
 
 <script>
   import Painel from './components/shared/painel/Painel.vue';
+  import ImagemResponsiva from './components/shared/imagem-responsiva/ImagemResponsiva.vue';
 
   export default {
     
     components: {
 
-      'meu-painel': Painel
+      'meu-painel': Painel,
+      'imagem-responsiva': ImagemResponsiva
     },
 
     data() {
@@ -47,7 +49,7 @@
           // Retorna apenas as fotos que condizem com a expressão.
           return this.fotos.filter(foto => exp.test(foto.titulo));
         } else {
-          
+
           return this.fotos;
         }
       }
@@ -79,10 +81,6 @@
 
   .lista-fotos .lista-fotos-item {
     display: inline-block;
-  }
-
-  .imagem-responsiva {
-    width: 100%;
   }
 
   .filtro {

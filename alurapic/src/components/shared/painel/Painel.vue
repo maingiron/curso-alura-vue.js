@@ -4,11 +4,15 @@
     <!-- Usado a diretiva v-on:dblclick para responder ao evento click na tag. -->
     <!-- O prefixo @ é um atalho para a diretiva v-on. -->
     <h2 class="painel-titulo" @dblclick="visivel = !visivel">{{ titulo }}</h2>
-    <!-- Coloco a tag slot para receber e manter tudo que estiver dentro da tag meu-painel (App.vue). -->
-    <!-- A diretiva v-show realiza um display none. Ela não pode ser usada diretamente na tag slot. -->
-    <div class="painel-conteudo" v-show="visivel">
-      <slot></slot>
-    </div>
+
+    <transition name="painel-fade">
+      <!-- Coloco a tag slot para receber e manter tudo que estiver dentro da tag meu-painel (App.vue). -->
+      <!-- A diretiva v-show realiza um display none. Ela não pode ser usada diretamente na tag slot. -->
+      <div class="painel-conteudo" v-show="visivel">
+        <slot></slot>
+      </div>
+    </transition>
+    
   </div>
 </template>
 
@@ -48,5 +52,13 @@
     margin: 0 0 15px 0;
     padding: 10px;
     text-transform: uppercase;
+  }
+
+  .painel-fade-enter, .painel-fade-leave-active {
+    opacity: 0;
+  }
+
+  .painel-fade-enter-active, .painel-fade-leave-active {
+    transition: opacity .4s;
   }
 </style>

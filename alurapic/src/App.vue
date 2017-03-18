@@ -1,14 +1,8 @@
 <template>
   <div class="corpo">
 
-    <nav>
-      <ul>
-        <!-- O componente router-link direciona para o componente sem recarregar a página, o que é um comportamento de uma SPA -->
-        <li v-for="route in routes">
-          <router-link :to="route.path ? route.path : '/'">{{ route.titulo }}</router-link>
-        </li>
-      </ul>
-    </nav>
+    <meu-menu :rotas="routes"></meu-menu>
+    
     <transition name="pagina">
       <router-view></router-view>
     </transition>
@@ -17,9 +11,16 @@
 </template>
 
 <script>
+
   import { routes } from './routes';
+  import Menu from './components/shared/menu/Menu.vue';
 
   export default {
+
+    components: {
+
+      'meu-menu': Menu
+    },
 
     data() {
 

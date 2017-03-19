@@ -11,6 +11,7 @@
 
 			disparaAcao() {
 				if(confirm('Deseja confirmar a operação?')) {
+					// this.$emit realizar a comunicação entre um componente filho e seu componente pai
 					this.$emit('botaoAtivado');
 				}
 			}

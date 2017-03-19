@@ -6,7 +6,22 @@
 <script>
 	export default {
 
-		props: ['tipo', 'rotulo', 'confirmacao', 'estilo'],
+		props: {
+
+			tipo: {
+				required: true,
+				type: String
+			},
+
+			rotulo: {
+				required: true,
+				type: String
+			},
+
+			confirmacao: Boolean,
+
+			estilo: String
+		},
 
 		methods: {
 
@@ -17,16 +32,16 @@
 					if(confirm('Deseja confirmar a operação?')) {
 					// this.$emit realizar a comunicação entre um componente filho e seu componente pai.
 					this.$emit('botaoAtivado');
-					}
-					return;
 				}
-				this.$emit('botaoAtivado');
+				return;
 			}
-		},
+			this.$emit('botaoAtivado');
+		}
+	},
 
-		computed: {
+	computed: {
 
-			estiloDoBotao() {
+		estiloDoBotao() {
 
 				// Verifico se não foi passado o estilo para atribuir o estilo padrão.
 				if(this.estilo == 'padrao' || !this.estilo) return 'botao-padrao';

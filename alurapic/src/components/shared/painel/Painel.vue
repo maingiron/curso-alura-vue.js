@@ -55,6 +55,10 @@
     text-transform: uppercase;
   }
 
+  .painel-conteudo {
+    overflow: hidden;
+  }
+
   .painel-fade-enter, .painel-fade-leave-active {
     opacity: 0;
   }

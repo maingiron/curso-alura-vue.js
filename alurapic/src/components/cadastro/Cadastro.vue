@@ -3,22 +3,24 @@
 		<h1 class="centralizado">Cadastro</h1>
 		<h2 class="centralizado"></h2>
 
-		<!-- O modificador prevent cancela o comportamento padrão do evento -->
+		<!-- O modificador prevent cancela o comportamento padrão do evento. -->
 		<form @submit.prevent="grava()">
 			<div class="controle">
 				<label for="titulo">TÍTULO</label>
-				<input id="titulo" autocomplete="off" @input="foto.titulo = $event.target.value" :value="foto.titulo">
+				<!-- A diretiva v-model realiza o Two-way data binding. O modificador lazy faz a associação somente quando o campo perde o foco. -->
+				<input id="titulo" autocomplete="off" v-model.lazy="foto.titulo">
 			</div>
 
 			<div class="controle">
 				<label for="url">URL</label>
-				<input id="url" autocomplete="off" @input="foto.url = $event.target.value" :value="foto.url">
-				<imagem-responsiva/>
+				<input id="url" autocomplete="off" v-model.lazy="foto.url">
+				<!-- A diretiva v-show mostra a foto somente quando tiver uma url digitada. -->
+				<imagem-responsiva v-show="foto.url" :url="foto.url" :titulo="foto.titulo"/>
 			</div>
 
 			<div class="controle">
 				<label for="descricao">DESCRIÇÃO</label>
-				<textarea id="descricao" autocomplete="off" @input="foto.descricao = $event.target.value" :value="foto.descricao"></textarea>
+				<textarea id="descricao" autocomplete="off" v-model="foto.descricao"></textarea>
 			</div>
 
 			<div class="centralizado">

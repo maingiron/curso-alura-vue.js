@@ -60,7 +60,7 @@
 
 				this.$http.
 					// Envio o dado para a API usando o post (Estamos trabalhando com o padrão REST). O segundo parâmetro é o dado que será enviado.
-					post('http://localhost:3000/v1/fotos', this.foto)
+					post('v1/fotos', this.foto)
 					// Caso tenha sucesso, limpo o form, se não, mostro o erro.
 					.then(() => this.foto = new Foto(), err => console.log(err));
 			}

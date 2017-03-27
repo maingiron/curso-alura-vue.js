@@ -58,12 +58,16 @@
 
 			grava() {
 
-				this.$http.
-					// Envio o dado para a API usando o post (Estamos trabalhando com o padrão REST). O segundo parâmetro é o dado que será enviado.
-					post('v1/fotos', this.foto)
+				this.resource
+					.save(this.foto)
 					// Caso tenha sucesso, limpo o form, se não, mostro o erro.
 					.then(() => this.foto = new Foto(), err => console.log(err));
 			}
+		},
+
+		created() {
+
+			this.resource = this.$resource('v1/fotos');
 		}
 	}
 

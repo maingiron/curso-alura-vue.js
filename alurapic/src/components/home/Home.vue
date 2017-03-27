@@ -72,28 +72,33 @@
 
       remove(foto) {
 
-        this.$http
-          .delete(`v1/fotos/${foto._id}`)
-          .then(() => {
+      // $resource é um objeto especializado no consumo de API que segue o padrão REST.
+      this.resource
+        .delete({ id: foto._id })
+        .then(() => {
 
-            // indexOf acha a posição da foto na lista.
-            let indice = this.fotos.indexOf(foto);
-            // splice remove um item do array.
-            this.fotos.splice(indice, 1);
-            this.mensagem = 'Foto removida com sucesso!'
-          }, err => {
+          // indexOf acha a posição da foto na lista.
+          let indice = this.fotos.indexOf(foto);
+          // splice remove um item do array.
+          this.fotos.splice(indice, 1);
+          this.mensagem = 'Foto removida com sucesso!'
+        }, err => {
 
-            console.log(err);
-            this.mensagem = 'Não foi possível remover a foto';
-          });
+          console.log(err);
+          this.mensagem = 'Não foi possível remover a foto';
+        });
       }
     },
 
     created() {
-
-      this.$http.get('v1/fotos')
-      .then(res => res.json())
-      .then(fotos => this.fotos = fotos, err => console.log(err));
+      // O parâmetro {/NOME} deve ser o mesmo no objeto criado no delete.
+      // Quando o parâmetro não é passado ele é ignorado.
+      this.resource = this.$resource('v1/fotos{/id}');
+      this.resource
+        // query realiza a busca na API (parecido com o verbo get).
+        .query()
+        .then(res => res.json())
+        .then(fotos => this.fotos = fotos, err => console.log(err));
     }
   }
 </script>

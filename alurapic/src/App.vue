@@ -26,7 +26,8 @@
 
       return {
 
-        routes
+        // Verifica se existe a propriedade menu para incluir no menu.
+        routes: routes.filter(route => route.menu)
       }
     }
   }

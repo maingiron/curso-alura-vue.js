@@ -5,7 +5,8 @@ export const routes = [
 
 	// O primeiro é a caminho que identifica o componente. 
 	// O segundo o componente que será carregado para este caminho presente na url do navegador.
-	{ path: '', component: Home, titulo: 'Home' },
-	{ path: '/cadastro', component: Cadastro, titulo: 'Cadastro' }
+	{ path: '/', name: 'home', component: Home, titulo: 'Home', menu: true },
+	{ path: '/cadastro', name: 'cadastro', component: Cadastro, titulo: 'Cadastro', menu: true },
+	{ path: '*', component: Home, menu: false }
 
 ];

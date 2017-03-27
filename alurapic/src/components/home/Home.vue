@@ -25,6 +25,7 @@
   import ImagemResponsiva from '../shared/imagem-responsiva/ImagemResponsiva.vue';
   import Botao from '../shared/botao/Botao.vue';
   import transform from '../../directives/Transform';
+  import FotoService from '../../domain/foto/FotoService';
 
   export default {
 
@@ -36,6 +37,7 @@
     },
 
     directives: {
+
       'meu-transform': transform
     },
 
@@ -72,32 +74,29 @@
 
       remove(foto) {
 
-      // $resource é um objeto especializado no consumo de API que segue o padrão REST.
-      this.resource
-        .delete({ id: foto._id })
-        .then(() => {
+        this.service
+          .apaga(foto._id)
+          .then(() => {
+            
+            // indexOf acha a posição da foto na lista.
+            let indice = this.fotos.indexOf(foto);
+            // splice remove um item do array.
+            this.fotos.splice(indice, 1);
+            this.mensagem = 'Foto removida com sucesso!'
+          }, err => {
 
-          // indexOf acha a posição da foto na lista.
-          let indice = this.fotos.indexOf(foto);
-          // splice remove um item do array.
-          this.fotos.splice(indice, 1);
-          this.mensagem = 'Foto removida com sucesso!'
-        }, err => {
-
-          console.log(err);
-          this.mensagem = 'Não foi possível remover a foto';
-        });
+            console.log(err);
+            this.mensagem = 'Não foi possível remover a foto';
+          });
       }
     },
 
     created() {
-      // O parâmetro {/NOME} deve ser o mesmo no objeto criado no delete.
-      // Quando o parâmetro não é passado ele é ignorado.
-      this.resource = this.$resource('v1/fotos{/id}');
-      this.resource
-        // query realiza a busca na API (parecido com o verbo get).
-        .query()
-        .then(res => res.json())
+
+      this.service = new FotoService(this.$resource);
+
+      this.service
+        .lista()
         .then(fotos => this.fotos = fotos, err => console.log(err));
     }
   }

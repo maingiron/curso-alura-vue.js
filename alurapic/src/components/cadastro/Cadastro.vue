@@ -37,6 +37,7 @@
 	import ImagemResponsiva from '../shared/imagem-responsiva/ImagemResponsiva.vue'
 	import Botao from '../shared/botao/Botao.vue';
 	import Foto from '../../domain/foto/Foto';
+	import FotoService from '../../domain/foto/FotoService';
 
 	export default {
 
@@ -58,8 +59,8 @@
 
 			grava() {
 
-				this.resource
-					.save(this.foto)
+				this.service
+					.cadastra(this.foto)
 					// Caso tenha sucesso, limpo o form, se não, mostro o erro.
 					.then(() => this.foto = new Foto(), err => console.log(err));
 			}
@@ -67,7 +68,7 @@
 
 		created() {
 
-			this.resource = this.$resource('v1/fotos');
+			this.service = new FotoService(this.$resource);
 		}
 	}
 

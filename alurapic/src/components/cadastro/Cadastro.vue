@@ -3,6 +3,9 @@
 		<h1 class="centralizado">Cadastro</h1>
 		<h2 class="centralizado"></h2>
 
+		<h2 v-if="foto._id" class="centralizado">Alterando</h2>
+		<h2 v-else class="centralizado">Incluíndo</h2>
+
 		<!-- O modificador prevent cancela o comportamento padrão do evento. -->
 		<form @submit.prevent="grava()">
 			<div class="controle">
@@ -64,7 +67,13 @@
 				this.service
 					.cadastra(this.foto)
 					// Caso tenha sucesso, limpo o form, se não, mostro o erro.
-					.then(() => this.foto = new Foto(), err => console.log(err));
+					.then(() => {
+
+						// Caso seja uma alteração, volto para a home.
+						if(this.id) this.$router.push({ name: 'home' });
+
+						this.foto = new Foto()
+					}, err => console.log(err));
 			}
 		},
 

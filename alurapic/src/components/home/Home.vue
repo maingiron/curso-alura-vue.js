@@ -12,6 +12,8 @@
         <meu-painel :titulo="foto.titulo">
           <imagem-responsiva v-meu-transform:rotate.animate="15" :url="foto.url" :titulo="foto.titulo"/>
           
+          <router-link :to="{ name: 'altera', params: { id: foto._id } }"><meu-botao tipo="button" rotulo="Alterar"/></router-link>
+
           <!-- Coloco o bind na confirmacao para enviar o argumento como boolean -->
           <meu-botao tipo="button" rotulo="Remover" @botaoAtivado="remove(foto)" :confirmacao="true" estilo="perigo"/>
         </meu-painel>

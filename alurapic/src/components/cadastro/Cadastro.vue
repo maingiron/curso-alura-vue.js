@@ -10,13 +10,16 @@
 		<form @submit.prevent="grava()">
 			<div class="controle">
 				<label for="titulo">TÍTULO</label>
-				<!-- A diretiva v-model realiza o Two-way data binding. O modificador lazy faz a associação somente quando o campo perde o foco. -->
-				<input id="titulo" autocomplete="off" v-model.lazy="foto.titulo">
+				<!-- A diretiva v-model realiza o Two-way data binding. -->
+				<input data-vv-as="título" name="titulo" v-validate data-vv-rules="required|min:3|max:50" id="titulo" autocomplete="off" v-model="foto.titulo">
+				<!-- errors.has verifica se no input com aquele nome possui algum erro -->
+				<span class="erro" v-show="errors.has('titulo')">{{ errors.first('titulo') }}</span>
 			</div>
 
 			<div class="controle">
 				<label for="url">URL</label>
-				<input id="url" autocomplete="off" v-model.lazy="foto.url">
+				<input name="url" v-validate data-vv-rules="required" id="url" autocomplete="off" v-model="foto.url">
+				<span class="erro" v-show="errors.has('url')">{{ errors.first('url') }}</span>
 				<!-- A diretiva v-show mostra a foto somente quando tiver uma url digitada. -->
 				<imagem-responsiva v-show="foto.url" :url="foto.url" :titulo="foto.titulo"/>
 			</div>
@@ -64,16 +67,25 @@
 
 			grava() {
 
-				this.service
-					.cadastra(this.foto)
-					// Caso tenha sucesso, limpo o form, se não, mostro o erro.
-					.then(() => {
+				this.$validator
+					.validateAll()
+					.then(success => {
 
-						// Caso seja uma alteração, volto para a home.
-						if(this.id) this.$router.push({ name: 'home' });
+						// Se passou em todas as validações, gravo.
+						if(success) {
 
-						this.foto = new Foto()
-					}, err => console.log(err));
+							this.service
+								.cadastra(this.foto)
+								// Caso tenha sucesso, limpo o form, se não, mostro o erro.
+								.then(() => {
+
+									// Caso seja uma alteração, volto para a home.
+									if(this.id) this.$router.push({ name: 'home' });
+
+									this.foto = new Foto()
+								}, err => console.log(err));
+						}
+					});
 			}
 		},
 
@@ -115,5 +127,9 @@
 
 	.centralizado {
 		text-align: center;
+	}
+
+	.erro {
+		color: #e70000;
 	}
 </style>

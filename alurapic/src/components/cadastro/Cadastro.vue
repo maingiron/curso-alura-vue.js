@@ -51,7 +51,9 @@
 			
 			return {
 
-				foto:	new Foto()
+				foto:	new Foto(),
+				// Com o $route extraio o parâmetro passado na rota para utilizar no componente.
+				id: this.$route.params.id
 			}
 		},
 
@@ -69,6 +71,14 @@
 		created() {
 
 			this.service = new FotoService(this.$resource);
+
+			// Caso exista a foto, preencho o form.
+			if(this.id) {
+
+				this.service
+					.busca(this.id)
+					.then(foto => this.foto = foto);
+			}
 		}
 	}
 

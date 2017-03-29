@@ -1,5 +1,7 @@
 import Home from './components/home/Home.vue';
-import Cadastro from './components/cadastro/Cadastro.vue';
+
+// Realiza o code splitting e lazy loading para carregar somente quando for chamado.
+const Cadastro = () => System.import('./components/cadastro/Cadastro.vue');
 
 export const routes = [
 

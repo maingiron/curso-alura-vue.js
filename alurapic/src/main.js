@@ -20,6 +20,21 @@ Vue.use(VueResource);
 // Quando rodarmos npm run build, o endereço será aquele definido em API_URL (em webpack.config.js).
 Vue.http.options.root = process.env.API_URL ? process.env.API_URL : 'http://localhost:3000';
 
+// Interceptador que realizam requisições com http ou resource.
+Vue.http.interceptors.push((req, next) => {
+
+    // É possível colocar informações no header antes do envio da requisição.
+    req.headers.set('Authorization', 'informação de segurança aqui');
+    console.log('Lidando com o request');
+
+    next(res => {
+      console.log('Lidando com a resposta')
+      // É possível acessar os dados da reposta e realizar transformações antes de enviar.
+      console.log(res.body);
+    });
+
+});
+
 Vue.use(VueRouter);
 Vue.use(VeeValidate, {
 	// Traduz a mensagem de erro do VeeValidate para Português. 

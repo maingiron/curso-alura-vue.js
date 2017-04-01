@@ -8,6 +8,7 @@ import { routes } from './routes';
 import './directives/Transform';
 import VeeValidate from 'vee-validate';
 import msg from './pt_BR';
+import 'bootstrap/dist/css/bootstrap.css';
 
 Vue.use(VueResource);
 // O http sempre usará a url abaixo

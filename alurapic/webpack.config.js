@@ -73,7 +73,10 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"',
+        
+        // Defino aqui a url para acesso da API em produção.
+        API_URL: '"http://enderecodasuaapi.com"'
       }
     }),
     new webpack.optimize.UglifyJsPlugin({

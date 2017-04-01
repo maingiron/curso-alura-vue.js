@@ -15,8 +15,11 @@ import './assets/css/style.css';
 import './assets/js/function.js';
 
 Vue.use(VueResource);
-// O http sempre usará a url abaixo
-Vue.http.options.root = 'http://localhost:3000';
+
+// Quando rodarmos npm run dev, a variável de ambiente não existirá e o endereço considerado será http://localhost:3000. 
+// Quando rodarmos npm run build, o endereço será aquele definido em API_URL (em webpack.config.js).
+Vue.http.options.root = process.env.API_URL ? process.env.API_URL : 'http://localhost:3000';
+
 Vue.use(VueRouter);
 Vue.use(VeeValidate, {
 	// Traduz a mensagem de erro do VeeValidate para Português. 

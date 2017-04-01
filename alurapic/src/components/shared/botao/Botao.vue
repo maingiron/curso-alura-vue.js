@@ -52,5 +52,6 @@
 </script>
 
 <style scoped lang="sass">
-	@import './Botao.scss'
+
+	@import './Botao.scss';
 </style>

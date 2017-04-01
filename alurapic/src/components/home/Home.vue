@@ -1,7 +1,7 @@
 <template>
   <div>
   <!-- Usamos a pasta static para colocar carregamento estático como a imagem abaixo. -->
-  <img src="/static/harley-davidson.jpg">
+  <!-- <img src="/static/harley-davidson.jpg"> -->
 
     <h1 class="text-center">{{ titulo }}</h1>
 
